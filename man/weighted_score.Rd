@@ -7,10 +7,11 @@
 weighted_score(x, pond = 1)
 }
 \arguments{
-\item{x}{a \code{QR_matrix} or \code{mQR_matrix} object}
+\item{x}{a \code{\link{QR_matrix}} or \code{\link{mQR_matrix}} object}
 
-\item{pond}{the weights to use. Can be an integer, a vector of integers, the name of one of the quality report variables
-or a list of weights for the \code{mQR_matrix} objects.}
+\item{pond}{the weights to use. Can be an integer, a vector of integers, the
+name of one of the quality report variables or a list of weights for the
+\code{\link{mQR_matrix}} objects.}
 }
 \value{
 the input with an additionnal weighted score
@@ -19,19 +20,34 @@ the input with an additionnal weighted score
 Function to weight a pre-calculated score
 }
 \examples{
-\dontrun{
-QR <- extract_QR()
-QR <- compute_score(QR)
-weighted_score(QR, 2) # All scores are multiplied by 2
-}
+# Path of matrix demetra_m
+demetra_path <- file.path(
+    system.file("extdata", package = "JDCruncheR"),
+    "WS/ws_ipi/Output/SAProcessing-1",
+    "demetra_m.csv"
+)
+
+# Extract the quality report from the demetra_m file
+QR <- extract_QR(demetra_path)
+
+# Compute the score
+QR <- compute_score(QR, n_contrib_score = 2)
+
+# Weighted score
+QR <- weighted_score(QR, 2)
+print(QR)
+
+# Extract the weighted score
+QR$modalities$score_pond
+
 }
 \seealso{
 \link[=fr-weighted_score]{Traduction française}
 
 Other QR_matrix functions: 
+\code{\link{export_xlsx}()},
 \code{\link{export_xlsx.QR_matrix}()},
 \code{\link{export_xlsx.mQR_matrix}()},
-\code{\link{export_xlsx}()},
 \code{\link{extract_QR}()},
 \code{\link{rbind.QR_matrix}()},
 \code{\link{sort}()}
